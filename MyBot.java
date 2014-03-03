@@ -3,9 +3,13 @@ package FurbyPackage;
 import java.util.*;
 import org.jibble.pircbot.*;
 
-public class MyBot extends PircBot {
+
+
+public class MyBot extends PircBot {	
+static GUI currentGUI = new GUI();
 	
-//	static GUI currentGUI = new GUI();	
+	
+	
 	public static String donateurl;
 	public static String donatetop5;
   	public Random randomint;
@@ -15,15 +19,23 @@ public class MyBot extends PircBot {
   	public int coinflip;
   	public String user1;
   	public String user2;
-  	    	
+    public int timedmsgcounter;				//load TimedMessageCounter
 //	 public String balluser1;
-//	 public String balluser2;
-		
-	 public boolean WelcomeMessage;	 		//load boolean for WelcomeMessage
-	 Timer wmsgtimer = new Timer();			//load WelcomeMessageTimer
-	 	 	 
+//	 public String balluser2;		
+	public boolean WelcomeMessage;	 		//load boolean for WelcomeMessage
+	
+	
+	
+	
+	
+	Timer wmsgtimer = new Timer();			//load WelcomeMessageTimer
+	Timer msgtimer1 = new Timer();			//load MessageTimer
+	
+	
+	
+	
     public MyBot() {
-//    	currentGUI.ShowComponents();
+    	currentGUI.ShowComponents();
         this.setName("FurbyBot");
         WelcomeMessage = false;
         rngNumber = 0;
@@ -32,194 +44,287 @@ public class MyBot extends PircBot {
         user1 = null;
         user1 = null;
         coinflip = 0;
-        this.setMessageDelay(1800);                        
+        this.setMessageDelay(1800);        
+        timedmsgcounter = 0;
 //		balluser1 = null
 //		balluser2 = null                                
         welcomemessageactivator();
+        messagetimer();
     }
-        
-// Start WelcomeMessageTimer    
+		////////////////////////////////
+		////     Timed Messages     ////
+		////////////////////////////////
+    
+    public void messagetimer(){    	
+	    msgtimer1.scheduleAtFixedRate(new TimerTask() {
+	        public void run() {       
+	        switch (timedmsgcounter){
+	        case 0: sendMessage ("#furby1987", "If you're new to the stream and enjoy my show, please feel free to hit that follow button! <3");
+	        	break;
+	        case 1: sendMessage ("#furby1987", "Wenn dir der Stream gefällt und du den Channel unterstützen möchtest, kannst du ja den follow/Folgen Button anklicken! Vielen Dank <3");
+	        	break;
+	        case 2: sendMessage ("#furby1987", "Willst du mit Furby's Community zocken? Tritt doch einfach unserer Steamgruppe bei unter: http://steamcommunity.com/groups/furby87");
+	        	break;
+	        }
+
+	        
+	        timedmsgcounter = timedmsgcounter+1;   			
+	        if (timedmsgcounter >= 3){
+	        	timedmsgcounter = 0;	// Counter nach Durchgang auf 0 zurücksetzen
+	        	}
+	        }	        	        
+	    }, 5*60*1000, 5*60*1000);		// Verzögerung Nachrichtenausgabe Default: 5*60*1000 = 5min
+    }
+    
+    
+    ///////////////////////////////////////////
+    ////   Timer WelcomeMessageActivator   ////
+    ///////////////////////////////////////////
+    
     public void welcomemessageactivator(){    	
 	    wmsgtimer.scheduleAtFixedRate(new TimerTask() {
 	        public void run() {
-	        	
-	        	WelcomeMessage = true;	        	
-//	Kill WelcomeMessageTimer	//
+	        	WelcomeMessage = true;		// WelcomeMessage aktivieren
 	        	wmsgtimer.cancel();	
-	        	wmsgtimer.purge();	        		        	
+	        	wmsgtimer.purge();	       	// Timer Killen
 	        }	        	        
-	    }, 10*1000, 10*1000);
-    }
-	//////////////////////        
-	// Custom Commands  //
-	//////////////////////    
+	    }, 15*1000, 15*1000);				// Zeit bis Aktivierung WelcomeMessage Default: 15*1000 = 15 Sekunden
+    }  	
+    
+    ////////////////////////////////
+    ////     WelcomeMessage     ////
+    ////////////////////////////////
+    public void onJoin(String channel, String sender, String login, String hostname){
+    	
+ 		if(WelcomeMessage){
+ 			sendMessage(channel,"Willkommen in unserem Channel,"+sender+"!! Viel Spass beim zuschauen!!");	// Willkommensnachricht
+ 		}
+	}
+
+
+
     public void onMessage(String channel, String sender,
-    		String login, String hostname, String message) {    	    	
+    		String login, String hostname, String message) { 
+    	
+	    	///////////////////////////////////////////////
+	    	///////									///////
+	    	//   //      Simple Command Outputs     //   //
+	    	///////									///////
+	    	///////////////////////////////////////////////
+    	
         if (message.equalsIgnoreCase("!time")) {
             String time = new java.util.Date().toString();
             sendMessage(channel, sender + ": The time is now " + time);
-        }                        
+        } 
+        
     	if (message.equalsIgnoreCase("!teamspeak")) {    		
     			sendMessage (channel, ":Join our Teamspeak at: www.FurbyTS.tk");   		
-    	}        
+    	}  
+    	
         if (message.equalsIgnoreCase("!ts")) {
         		sendMessage (channel, ":Besuche uns doch im Teamspeak unter: www.FurbyTS.tk oder klicke einfach auf: ts3server://www.furbyts.tk");
-        }        
+        } 
+        
         if (message.equalsIgnoreCase("!steam")) {
          		sendMessage (channel, ":Willst du mit Furby's Community zocken? Tritt doch einfach unserer Steamgruppe bei unter: http://steamcommunity.com/groups/furby87");       
     	}
+        
     	if (message.equalsIgnoreCase("!fb")) {
     			sendMessage (channel, ":Du findest Furby auch auf Facebook: www.facebook.com/furbystream");
-    	}    	
+    	} 
+    	
     	if (message.equalsIgnoreCase("!facebook")) {
     			sendMessage (channel, ":Du findest Furby auch auf Facebook: www.facebook.com/furbystream");
-       	}    	
+       	} 
+    	
     	if (message.equalsIgnoreCase("!twitter")) {
     			sendMessage (channel, ":Furby ist auch auf Twitter: https://twitter.com/furby240487");
-    	}    	
+    	} 
+    	
     	if (message.equalsIgnoreCase("!donate")) {
     			sendMessage (channel, ":Du möchtest den Stream unterstützen und Spenden? dann klicke einfach auf: https://www.donation-tracker.com/u/furby");
     	}
+    	
     	if (message.equalsIgnoreCase("!spenden")) {
     			sendMessage (channel, ":Möchtest du mich und den Channel unterstützen? Alle Spenden werden in neues Gear + Games sowie Giveaways und anderes für die Community und den Channel investiert. Spenden kannst du hier: https://www.donation-tracker.com/u/furby");
     	}
+    	
     	if (message.equalsIgnoreCase("!follow")) {
     			sendMessage (channel, "If you're new to the stream and enjoy my show, please feel free to hit that follow button! <3");
     			sendMessage (channel, "Wenn dir der Stream gefällt und du den Channel unterstützen möchtest, kannst du ja den follow/Folgen Button anklicken! Vielen Dank <3");
     	}
     	
-    	
-    	
-    	
-//    	// Donatecheck Befehle    	
-//    	if (message.equalsIgnoreCase("!donatecheck")) {
-//				try {
-//					DonatorChecker.main();
-//				} catch (Exception e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();				}
-//    		sendMessage(channel,"Link output: "+donateurl);
-//    	}    	
-//    	if (message.equalsIgnoreCase("!top5")) {
-//				try {
-//					DonatorChecker.top5();
-//				} catch (Exception e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();				}
-//    		sendMessage(channel,"Link output Top5 Donater: "+donatetop5);
-//    	}
-  	
-    	
-    	
-// Fun-Commands
+    	//////////////////////////////////////
+    	///   //    Fun-Commandos     //   ///
+    	//////////////////////////////////////
     	
     	if (message.equalsIgnoreCase("!chabo")) {
-    			sendMessage(channel, sender + " ruft: Chabos wisse wer de Babo isch");
-    	}
-    	if (message.equalsIgnoreCase("!yellow")) {
-    			sendMessage(channel, "My english is not the yellow from the egg xD <3");
-    	}
+			sendMessage(channel, sender + " ruft: Chabos wisse wer de Babo isch");
+		}
     	
-    		/////////////////////////////////
-    		////        Highfiver        ////
-    		/////////////////////////////////
-    	if (message.equalsIgnoreCase("!highfiveme")) {
-    			sendMessage(channel, " !highfive "+sender+"!");
-    	}
+		if (message.equalsIgnoreCase("!yellow")) {
+				sendMessage(channel, "My english is not the yellow from the egg xD <3");
+		}
     	
-    	if (message.equalsIgnoreCase("!highfive")) {
-    		if(user1 == null){
-    			user1 = sender;
-    		}else{
-    			user2 = sender;	
-    			highfiveGenerator(channel);    			
-    			}
-    	}
-    	if (message.equalsIgnoreCase("!highfivetest")) {
-    		sendMessage(channel, "!highfive");
-    	}
+    	/////////////////////////////////
+		////     DonaterAbfragen     ////
+    	/////////////////////////////////
     	
+		if (message.equalsIgnoreCase("!donatecheck")) {
+				try {
+					DonatorChecker.main();
+				} catch (Exception e) {
+					e.printStackTrace();				
+					}
+    		sendMessage(channel,"Link output: "+donateurl);
+    		}  
     	
-    	//////////////////////////////////
-    	//         Blockergame          //
-    	//////////////////////////////////
-    	
-    	if (message.equalsIgnoreCase("!testmeright")) {
-    		if(randomNumber(2) == 0){
-    			sendMessage(channel, sender + " BLOCK!");
-       		}else{
-       			sendMessage(channel, sender + " DEATH!");
-       		}
-    	}else if (message.equalsIgnoreCase("!testmeleft")) {
-    		if(randomNumber(2) == 2){
-    			sendMessage(channel, sender + " BLOCK!");   			
-    		}else{
-    			sendMessage(channel, sender + " DEATH!");
+    	    	
+    	if (message.equalsIgnoreCase("!top5")) {
+				try {
+					DonatorChecker.top5();
+				} catch (Exception e) {
+					e.printStackTrace();				
+					}
+    		sendMessage(channel,"Link output Top5 Donater: "+donatetop5);
     		}
-       	}else if (message.equalsIgnoreCase("!testmefront")) {
-       		if(randomNumber(2) == 1){
-       			sendMessage(channel, sender + " BLOCK!");
-       		}else{
-       			sendMessage(channel, sender + " DEATH!");
-       		}
-    	}
-    	
-        //////////////////////////////////////////////////
-        //  //              Münzwurf                //  //
-        //////////////////////////////////////////////////
-        if (message.equalsIgnoreCase("!münzwurf")) {
-        	coinflip = randomNumber(99);
-        	if(coinflip <= 48){
-        		sendMessage(channel, sender + " wirft seine Münze und auf dem Boden liegt.... Zahl!");
-        	}else if(coinflip >= 49 && coinflip <= 97){
-        		sendMessage(channel, sender + " wirft seine Münze und auf dem Boden liegt.... Kopf!");
-        	}else if(coinflip == 98){
-        		sendMessage(channel, sender + " wirft seine Münze und auf dem Boden liegt.... Die Münze auf dem Rand! UNGLAUBLICH!");
-        	}
-        }
-    	
-    	///////////////////////////////////////////////////
-    	//////////  Spiel Ballwerfen by Yeroise  //////////
-    	///////////////////////////////////////////////////
-    	
-//    	if (message.equalsIgnoreCase("!ballspiel")) {
-//				if(balluser1 == null){
-//    			sendMessage(channel, sender + " sucht einen Mitspieler für das Ballspiel!");
-//    			balluser1 = sender;
-//    			}else{
-//    			balluser2 = sender;
-//    			BallGenerator(channel);
-//    			}
-//    	}
-    	
-    	
+
+
     	////////////////////////////////////////////
     	////          BEFEHLE (!CMD)            ////
     	///////////////////////////////////////////
-    	
+
     	for(int i = 0; i < moderatoren.length; i++){    		
     		if (message.equalsIgnoreCase("!CMD")){
     			String senderholder = sender;
-    			
+
     			if (senderholder.equals(moderatoren[i])){
-		   			sendMessage (channel, "!time, !ts, !teamspeak, !steam, !fb, !facebook, !twitter, !donate, !spenden, !chabo, !highfive, !highfiveme, !münzwurf, !testmeleft, !testmeright, !testmefront, !donatecheck, !top5");
+		   			sendMessage (channel, "!time, !ts, !teamspeak, !steam, !fb, !facebook, !twitter, !donate, !spenden, !chabo, !highfive, !highfiveme, !münzwurf, !testmeleft, !testmeright, !testmefront, !donatecheck, !top5, /ban username, /unban username");
 	    		break;
-    			}else{   			
+    		}else{   			
 		    		sendMessage(channel, "!time, !ts, !teamspeak, !steam, !fb, !facebook, !twitter, !donate, !spenden, !chabo, !highfive, !highfiveme, !münzwurf, !testmeleft, !tesmeright, !testmefront, !donatecheck, !top5");
     			break;
     			}
     		}
     	}
-    }
 	    
+    	
+//	Games    	
+    	
+
     
+		/////////////////////////////////
+		////        Highfiver        ////
+		/////////////////////////////////
+		if (message.equalsIgnoreCase("!highfiveme")) {
+				sendMessage(channel, " !highfive "+sender+"!");
+		}
+		
+		
+		if (message.equalsIgnoreCase("!highfive")) {
+			if(user1 == null){
+				user1 = sender;
+			}else{
+				user2 = sender;	
+				highfiveGenerator(channel);    			
+				}
+		}
+		
+		
+		if (message.equalsIgnoreCase("!highfivetest")) {
+			sendMessage(channel, "!highfive");
+		}
+		
+		
+		
+
+
+		//////////////////////////////////
+		//         Blockergame          //
+		//////////////////////////////////
+		
+		if (message.equalsIgnoreCase("!testmeright")) {
+			if(randomNumber(2) == 0){
+				sendMessage(channel, sender + " BLOCK!");
+				}else{
+				sendMessage(channel, sender + " DEATH!");
+				}
+			}else 
+				
+		if (message.equalsIgnoreCase("!testmeleft")) {
+			if(randomNumber(2) == 2){
+				sendMessage(channel, sender + " BLOCK!");   			
+				}else{
+				sendMessage(channel, sender + " DEATH!");
+				}
+			}else 
+				
+		if (message.equalsIgnoreCase("!testmefront")) {
+			if(randomNumber(2) == 1){
+				sendMessage(channel, sender + " BLOCK!");
+				}else{
+				sendMessage(channel, sender + " DEATH!");
+				}
+		}
+	
+	
+	
+	
+
+	//////////////////////////////////////////////////
+	//  //              Münzwurf                //  //
+	//////////////////////////////////////////////////
+	
+	if (message.equalsIgnoreCase("!münzwurf")) {
+		coinflip = randomNumber(99);
+		
+		if(coinflip <= 48){
+			sendMessage(channel, sender + " wirft seine Münze und auf dem Boden liegt.... Zahl!");
+			
+		}else 
+			
+		if(coinflip >= 49 && coinflip <= 97){
+			sendMessage(channel, sender + " wirft seine Münze und auf dem Boden liegt.... Kopf!");
+		}else
+			
+		if(coinflip == 98){
+			sendMessage(channel, sender + " wirft seine Münze und auf dem Boden liegt.... Die Münze auf dem Rand! UNGLAUBLICH!");
+		}
+	}
+	
+	
+	
+	
+	///////////////////////////////////////////////////
+	//////////  Spiel Ballwerfen by Yeroise  //////////
+	///////////////////////////////////////////////////
+
+//	if (message.equalsIgnoreCase("!ballspiel")) {
+//			if(balluser1 == null){
+//			sendMessage(channel, sender + " sucht einen Mitspieler für das Ballspiel!");
+//			balluser1 = sender;
+//			}else{
+//			balluser2 = sender;
+//			BallGenerator(channel);
+//			}
+//	}
+	
+}
+
+    
+    
+    
+    
+    
+     
     public int randomNumber(int range){
     	rngNumber = randomint.nextInt(range);
     	return rngNumber;
     	
     }
-    
-    // HighfiveGenerator
+    ///////////////////////////////////
+    ////     HighFiveGenerator     ////
+    ///////////////////////////////////
     
     public void highfiveGenerator (String channel){
     	randomhighfive = randomNumber(8);
@@ -244,25 +349,18 @@ public class MyBot extends PircBot {
     	user1 = null;
     	user2 = null;
     }
-// WelcomeMessage  
-    
-    public void onJoin(String channel, String sender, String login, String hostname){
-    	
- 		if(WelcomeMessage){
- 			sendMessage(channel,"Willkommen in unserem Channel,"+sender+"!! Viel Spass beim zuschauen!!");	// Willkommensnachricht
- 		}
-	}
+
     
     
-//    @Override
-//    public void log(String line) {
-//         currentGUI.ChatLog.append(line + "\n");
-//         currentGUI.ChatLog.setCaretPosition(currentGUI.ChatLog.getText().length());
-//    }
+    
+    
+    
+    
+    
+    
+    @Override
+    public void log(String line) {
+         currentGUI.ChatLog.append(line + "\n");
+         currentGUI.ChatLog.setCaretPosition(currentGUI.ChatLog.getText().length());
+    }
 }
-
-
-
-
-
-
