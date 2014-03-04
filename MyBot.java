@@ -1,6 +1,7 @@
 package FurbyPackage;
 
 import java.util.*;
+
 import org.jibble.pircbot.*;
 
 
@@ -73,7 +74,7 @@ static GUI currentGUI = new GUI();
 	        	timedmsgcounter = 0;	// Counter nach Durchgang auf 0 zurücksetzen
 	        	}
 	        }	        	        
-	    }, 5*60*1000, 5*60*1000);		// Verzögerung Nachrichtenausgabe Default: 5*60*1000 = 5min
+	    }, 10*60*1000, 10*60*1000);		// Verzögerung Nachrichtenausgabe Default: 10*60*1000 = 10min
     }
     
     
@@ -148,10 +149,19 @@ static GUI currentGUI = new GUI();
     	if (message.equalsIgnoreCase("!spenden")) {
     			sendMessage (channel, ":Möchtest du mich und den Channel unterstützen? Alle Spenden werden in neues Gear + Games sowie Giveaways und anderes für die Community und den Channel investiert. Spenden kannst du hier: https://www.donation-tracker.com/u/furby");
     	}
-    	
+    	if (message.equalsIgnoreCase("!sub")) {
+    			sendMessage (channel, ": Would you support me and the channel? All donations will be invested in new Gear + games and giveaways and other things for the community and the channel. You can donate here: https://www.donation-tracker.com/u/furby");
+    			sendMessage (channel, ": Möchtest du mich und den Channel unterstützen? Alle Spenden werden in neues Gear + Games sowie Giveaways und anderes für die Community und den Channel investiert. Spenden kannst du hier : https://www.donation-tracker.com/u/furby");
+    	}
     	if (message.equalsIgnoreCase("!follow")) {
     			sendMessage (channel, "If you're new to the stream and enjoy my show, please feel free to hit that follow button! <3");
     			sendMessage (channel, "Wenn dir der Stream gefällt und du den Channel unterstützen möchtest, kannst du ja den follow/Folgen Button anklicken! Vielen Dank <3");
+    	}
+    	if (message.equalsIgnoreCase("!mmoga")) {
+    			sendMessage (channel, "Du bestellst öfters über MMOGA und möchtest Furby mit deinen Einkäufen unterstützen? Dann nutz doch einfach unseren REF-Link!");
+    	}
+    	if (message.equalsIgnoreCase("!randyrun")) {
+    			sendMessage (channel, "Du bestellst über RandyRun und möchtest Furby's Channel mit deinen Einköufen unterstützen? Dann nutze doch einfach unseren Partnerlink: http://www.randyrun.de/index.php?ref=148&affiliate_banner_id=23 | vielen Dank");
     	}
     	
     	//////////////////////////////////////
@@ -199,7 +209,8 @@ static GUI currentGUI = new GUI();
     			String senderholder = sender;
 
     			if (senderholder.equals(moderatoren[i])){
-		   			sendMessage (channel, "!time, !ts, !teamspeak, !steam, !fb, !facebook, !twitter, !donate, !spenden, !chabo, !highfive, !highfiveme, !münzwurf, !testmeleft, !testmeright, !testmefront, !donatecheck, !top5, /ban username, /unban username");
+		   			sendMessage (channel, "!time, !ts, !teamspeak, !steam, !fb, !facebook, !twitter, !donate, !spenden, !chabo, !highfive, !highfiveme, !münzwurf, !testmeleft, !testmeright, !testmefront, !donatecheck, !top5,");
+		   			sendMessage (channel, "Mod-Befehle: !reconnect, /ban Username, /unban username");
 	    		break;
     		}else{   			
 		    		sendMessage(channel, "!time, !ts, !teamspeak, !steam, !fb, !facebook, !twitter, !donate, !spenden, !chabo, !highfive, !highfiveme, !münzwurf, !testmeleft, !tesmeright, !testmefront, !donatecheck, !top5");
@@ -207,12 +218,46 @@ static GUI currentGUI = new GUI();
     			}
     		}
     	}
-	    
     	
-//	Games    	
     	
+    		////////////////////////////////////////////////////
+    		////	  Partnerlinks Game Finder Query		////
+    		////////////////////////////////////////////////////
+    	
+    	if (message.startsWith("!mmoga")) {
+    		try {
+    		String gamename = message.split(" ")[1];
 
-    
+    			sendMessage(channel, "http://www.mmoga.de/advanced_search.php?keywords="+gamename+"");
+    	//		sendMessage(channel, "http://www.mmoga.de/advanced_search.php?keywords="+gamename+"&ref=0000");
+
+    		} catch (Exception e) {
+   		}
+   	}
+    	if (message.startsWith("!randyrun")) {
+    		try {
+    		String gamename = message.split(" ")[1];
+
+//    			sendMessage(channel, "http://www.randyrun.de/advanced_search_result.php?keywords="+gamename+"");
+    			sendMessage(channel, "http://www.randyrun.de/advanced_search_result.php?keywords="+gamename+"&searchsubmit=?ref=148&affiliate_banner_id=23");
+
+    		} catch (Exception e) {
+    	}
+    }
+    	if (message.startsWith("!rr")) {
+    		try {
+    		String gamename = message.split(" ")[1];
+
+//    			sendMessage(channel, "http://www.randyrun.de/advanced_search_result.php?keywords="+gamename+"");
+    			sendMessage(channel, "http://www.randyrun.de/advanced_search_result.php?keywords="+gamename+"&searchsubmit=?ref=148&affiliate_banner_id=23");
+
+    		} catch (Exception e) {
+    	}
+    }
+
+    	
+//	Games  
+
 		/////////////////////////////////
 		////        Highfiver        ////
 		/////////////////////////////////
@@ -358,7 +403,8 @@ static GUI currentGUI = new GUI();
     
     
     
-    @Override
+    @SuppressWarnings("static-access")
+	@Override
     public void log(String line) {
          currentGUI.ChatLog.append(line + "\n");
          currentGUI.ChatLog.setCaretPosition(currentGUI.ChatLog.getText().length());
