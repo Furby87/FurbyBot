@@ -1,0 +1,7 @@
+TO-DO List
+==========
+
+- Belohnungssystem / Punktesystem (Cookies)
+- Easter-Eggs
+- Spamschutz / Spamfilter
+- Ticketfunktion
