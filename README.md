@@ -3,7 +3,7 @@ FurbyBot
 
 IRC Bot for Twitch.tv by Furby (www.twitch.tv/furby1987)
 (under constuction)
-(Noch in Entwichlung)
+(Noch in Entwicklung)
 
 
 
