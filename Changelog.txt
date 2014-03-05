@@ -1,0 +1,7 @@
+Changelog
+=========
+
+Wednesday, 02.03.2014
+---------------------
+- added Moderator-Befehle
+- added ModCommand: -!highfivetest
