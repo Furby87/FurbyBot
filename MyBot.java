@@ -26,8 +26,7 @@ static GUI currentGUI = new GUI();
 	public boolean WelcomeMessage;	 		//load boolean for WelcomeMessage
 	
 	
-	
-	
+
 	
 	Timer wmsgtimer = new Timer();			//load WelcomeMessageTimer
 	Timer msgtimer1 = new Timer();			//load MessageTimer
@@ -117,7 +116,7 @@ static GUI currentGUI = new GUI();
             String time = new java.util.Date().toString();
             sendMessage(channel, sender + ": The time is now " + time);
         } 
-        
+    // 	Soziallinks und Teamspeak
     	if (message.equalsIgnoreCase("!teamspeak")) {    		
     			sendMessage (channel, ":Join our Teamspeak at: www.FurbyTS.tk");   		
     	}  
@@ -141,28 +140,30 @@ static GUI currentGUI = new GUI();
     	if (message.equalsIgnoreCase("!twitter")) {
     			sendMessage (channel, ":Furby ist auch auf Twitter: https://twitter.com/furby240487");
     	} 
-    	
+   	//	PartnerLinks
+//    	if (message.equalsIgnoreCase("!mmoga")) {
+//    			sendMessage (channel, "Du bestellst öfters über MMOGA und möchtest Furby mit deinen Einkäufen unterstützen? Dann nutz doch einfach unseren REF-Link!");
+//    	}
+    	if (message.equalsIgnoreCase("!randyrun")) {
+    			sendMessage (channel, "Du bestellst über RandyRun und möchtest Furby's Channel mit deinen Einköufen unterstützen? Dann nutze doch einfach unseren Partnerlink: http://bit.ly/1g8nckF | vielen Dank");
+    	}
+    //	andere Befehle
     	if (message.equalsIgnoreCase("!donate")) {
-    			sendMessage (channel, ":Du möchtest den Stream unterstützen und Spenden? dann klicke einfach auf: https://www.donation-tracker.com/u/furby");
+    			sendMessage (channel, ":Du möchtest den Stream unterstützen und Spenden? dann klicke einfach auf: http://bit.ly/1dnHo4z");
     	}
     	
     	if (message.equalsIgnoreCase("!spenden")) {
-    			sendMessage (channel, ":Möchtest du mich und den Channel unterstützen? Alle Spenden werden in neues Gear + Games sowie Giveaways und anderes für die Community und den Channel investiert. Spenden kannst du hier: https://www.donation-tracker.com/u/furby");
+    			sendMessage (channel, ":Möchtest du mich und den Channel unterstützen? Alle Spenden werden in neues Gear + Games sowie Giveaways und anderes für die Community und den Channel investiert. Spenden kannst du hier: http://bit.ly/1dnHo4z");
     	}
     	if (message.equalsIgnoreCase("!sub")) {
-    			sendMessage (channel, ": Would you support me and the channel? All donations will be invested in new Gear + games and giveaways and other things for the community and the channel. You can donate here: https://www.donation-tracker.com/u/furby");
-    			sendMessage (channel, ": Möchtest du mich und den Channel unterstützen? Alle Spenden werden in neues Gear + Games sowie Giveaways und anderes für die Community und den Channel investiert. Spenden kannst du hier : https://www.donation-tracker.com/u/furby");
+    			sendMessage (channel, ": Would you support me and the channel? All donations will be invested in new Gear + games and giveaways and other things for the community and the channel. You can donate here: http://bit.ly/1dnHo4z");
+    			sendMessage (channel, ": Möchtest du mich und den Channel unterstützen? Alle Spenden werden in neues Gear + Games sowie Giveaways und anderes für die Community und den Channel investiert. Spenden kannst du hier : http://bit.ly/1dnHo4z");
     	}
     	if (message.equalsIgnoreCase("!follow")) {
     			sendMessage (channel, "If you're new to the stream and enjoy my show, please feel free to hit that follow button! <3");
     			sendMessage (channel, "Wenn dir der Stream gefällt und du den Channel unterstützen möchtest, kannst du ja den follow/Folgen Button anklicken! Vielen Dank <3");
     	}
-    	if (message.equalsIgnoreCase("!mmoga")) {
-    			sendMessage (channel, "Du bestellst öfters über MMOGA und möchtest Furby mit deinen Einkäufen unterstützen? Dann nutz doch einfach unseren REF-Link!");
-    	}
-    	if (message.equalsIgnoreCase("!randyrun")) {
-    			sendMessage (channel, "Du bestellst über RandyRun und möchtest Furby's Channel mit deinen Einköufen unterstützen? Dann nutze doch einfach unseren Partnerlink: http://www.randyrun.de/index.php?ref=148&affiliate_banner_id=23 | vielen Dank");
-    	}
+
     	
     	//////////////////////////////////////
     	///   //    Fun-Commandos     //   ///
@@ -200,10 +201,24 @@ static GUI currentGUI = new GUI();
     		}
 
 
+			    	
+			    ////////////////////////////////////////////
+			   	////		ModeratorenBefehle			////
+			   	////////////////////////////////////////////
+
+    	if (message.equalsIgnoreCase("!highfivetest")) {
+		    	List<String> moderatorenListe = Arrays.asList(moderatoren);
+		    	if (moderatorenListe.contains(sender)) {
+		    	    sendMessage (channel, "!highfive");
+		    	} else {
+		    	    sendMessage(channel, "Nur eingetragene Moderatoren haben Zugriff auf diesen Befehl. Sry <3");
+		    	}
+    	}
+    	
     	////////////////////////////////////////////
     	////          BEFEHLE (!CMD)            ////
-    	///////////////////////////////////////////
-
+    	////////////////////////////////////////////
+    	
     	for(int i = 0; i < moderatoren.length; i++){    		
     		if (message.equalsIgnoreCase("!CMD")){
     			String senderholder = sender;
@@ -261,7 +276,7 @@ static GUI currentGUI = new GUI();
 		/////////////////////////////////
 		////        Highfiver        ////
 		/////////////////////////////////
-		if (message.equalsIgnoreCase("!highfiveme")) {
+		if (message.equalsIgnoreCase("highfiveme!")) {
 				sendMessage(channel, " !highfive "+sender+"!");
 		}
 		
@@ -276,10 +291,6 @@ static GUI currentGUI = new GUI();
 		}
 		
 		
-		if (message.equalsIgnoreCase("!highfivetest")) {
-			sendMessage(channel, "!highfive");
-		}
-		
 		
 		
 
@@ -289,7 +300,7 @@ static GUI currentGUI = new GUI();
 		//////////////////////////////////
 		
 		if (message.equalsIgnoreCase("!testmeright")) {
-			if(randomNumber(2) == 0){
+			if(randomNumber(3) == 0){
 				sendMessage(channel, sender + " BLOCK!");
 				}else{
 				sendMessage(channel, sender + " DEATH!");
@@ -297,7 +308,7 @@ static GUI currentGUI = new GUI();
 			}else 
 				
 		if (message.equalsIgnoreCase("!testmeleft")) {
-			if(randomNumber(2) == 2){
+			if(randomNumber(3) == 2){
 				sendMessage(channel, sender + " BLOCK!");   			
 				}else{
 				sendMessage(channel, sender + " DEATH!");
@@ -305,7 +316,7 @@ static GUI currentGUI = new GUI();
 			}else 
 				
 		if (message.equalsIgnoreCase("!testmefront")) {
-			if(randomNumber(2) == 1){
+			if(randomNumber(3) == 1){
 				sendMessage(channel, sender + " BLOCK!");
 				}else{
 				sendMessage(channel, sender + " DEATH!");
