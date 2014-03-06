@@ -1,7 +1,19 @@
 Changelog
 =========
 
+Thursday, 03.03.2014
+--------------------
+- Suchfunktion Partnerlink hinzugefügt bei:   !mmoga
+- Suchfunktion Pertnerlink hinzugefügt bei:   !randyrun
+- Suchfunktion Partnerlink hinzugefügt bei:   !rr
+- Suchfunktion Partnerlink Optimiert
+- Neuer Mod-Befehl: !op
+- Temp entfernt:    !op
+
+
 Wednesday, 02.03.2014
 ---------------------
-- added Moderator-Befehle
-- added ModCommand: -!highfivetest
+- Moderator Befehle hinzugefügt
+- Neuer Befehl:   - !highfivetest
+- Optimiert:      - "if Mod" Abfrage
+- einige Links verkürzt mit bit.ly
