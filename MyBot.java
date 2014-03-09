@@ -50,9 +50,9 @@ static GUI currentGUI = new GUI();
         welcomemessageactivator();
         messagetimer();
     }
-		////////////////////////////////
-		////     Timed Messages     ////
-		////////////////////////////////
+			////////////////////////////////
+			////     Timed Messages     ////
+			////////////////////////////////
     
     public void messagetimer(){    	
 	    msgtimer1.scheduleAtFixedRate(new TimerTask() {
@@ -78,9 +78,9 @@ static GUI currentGUI = new GUI();
     }
     
     
-    ///////////////////////////////////////////
-    ////   Timer WelcomeMessageActivator   ////
-    ///////////////////////////////////////////
+    		///////////////////////////////////////////
+    		////   Timer WelcomeMessageActivator   ////
+    		///////////////////////////////////////////
     
     public void welcomemessageactivator(){    	
 	    wmsgtimer.scheduleAtFixedRate(new TimerTask() {
@@ -92,13 +92,13 @@ static GUI currentGUI = new GUI();
 	    }, 18*1000, 18*1000);				// Zeit bis Aktivierung WelcomeMessage Default: 15*1000 = 15 Sekunden
     }  	
     
-    ////////////////////////////////
-    ////     WelcomeMessage     ////
-    ////////////////////////////////
+    		////////////////////////////////
+    		////     WelcomeMessage     ////
+    		////////////////////////////////
     public void onJoin(String channel, String sender, String login, String hostname){
     	
  		if(WelcomeMessage){
- 			sendMessage(channel,"Willkommen in unserem Channel,"+sender+"!! Viel Spass beim zuschauen!!");	// Willkommensnachricht
+ 			sendMessage(channel,"Willkommen in unserem Channel, "+sender+"!! Viel Spass beim zuschauen!!");	// Willkommensnachricht
  		}
 	}
 
@@ -206,9 +206,9 @@ static GUI currentGUI = new GUI();
 			sendMessage (channel, "für allfällige Tipps, Bugs oder Verbesserungsvorschläge einfach Twitchnachricht an Furby1987");
     	}
     	
-    	//////////////////////////////////////
-    	///   //    Fun-Commandos     //   ///
-    	//////////////////////////////////////
+	    	//////////////////////////////////////
+	    	///   //    Fun-Commandos     //   ///
+	    	//////////////////////////////////////
     	
     	if (message.equalsIgnoreCase("!chabo")) {
     			sendMessage(channel, sender + " ruft: Chabos wisse wer de Babo isch");
@@ -223,9 +223,9 @@ static GUI currentGUI = new GUI();
 			sendMessage(channel, "http://www.real-life-link.de xD <3");
 		}
     	
-    	/////////////////////////////////
-		////     DonaterAbfragen     ////
-    	/////////////////////////////////
+	    	/////////////////////////////////
+			////     DonaterAbfragen     ////
+	    	/////////////////////////////////
     	
 		if (message.equalsIgnoreCase("!donatecheck")) {
 				try {
@@ -247,18 +247,32 @@ static GUI currentGUI = new GUI();
 
 
 			    	
-			    ////////////////////////////////////////////
-			   	////		ModeratorenBefehle			////
-			   	////////////////////////////////////////////
+		    ////////////////////////////////////////////
+		   	////		ModeratorenBefehle			////
+		   	////////////////////////////////////////////
 
     	if (message.equalsIgnoreCase("!highfivetest")) {
-		    	List<String> moderatorenListe = Arrays.asList(moderatoren);
+		    List<String> moderatorenListe = Arrays.asList(moderatoren);
 		    	if (moderatorenListe.contains(sender)) {
 		    	    sendMessage (channel, "!highfive");
 		    	} else {
 		    	    sendMessage(channel, "Nur eingetragene Moderatoren haben Zugriff auf diesen Befehl. Sry <3");
-		    	}
+		   	}
     	}
+    	
+    	
+    	if (message.equalsIgnoreCase("!quit")) {
+	    	List<String> moderatorenListe = Arrays.asList(moderatoren);
+	    		if (moderatorenListe.contains(sender)) {
+	    			sendMessage (channel, "Meldet sich vom Dienst ab, Captain "+sender+"! ByeBye");
+	    			quitServer();
+	    		} else {
+	    			sendMessage(channel, "Nur eingetragene Moderatoren haben Zugriff auf diesen Befehl. Sry <3");
+	    	}
+    	}
+    	
+    	
+    	
 //    	if (message.startsWith("!op")) {
 //    		List<String> moderatorenListe = Arrays.asList(moderatoren);
 //    		if (moderatorenListe.contains(sender)) {
@@ -272,23 +286,23 @@ static GUI currentGUI = new GUI();
 //    	    	}
 //    	}
     	
-    	////////////////////////////////////////////
-    	////          BEFEHLE (!CMD)            ////
-    	////////////////////////////////////////////
+	    	////////////////////////////////////////////
+	    	////          BEFEHLE (!CMD)            ////
+	    	////////////////////////////////////////////
 
     	if (message.equalsIgnoreCase("!cmd")) {
     			List<String> moderatorenListe = Arrays.asList(moderatoren);
     		if (moderatorenListe.contains(sender)) {
     				sendMessage (channel, "!time, !twitty, !furbybot, !reallife, !ts, !battletag, !teamspeak, !steam, !ahrtos, !fb, !facebook, !ahrtos-life, !hearthtracker, !lmgtfy [Suchbegriff], !google [Suchbegriff], !amazon, !twitter, !donate, !spenden, !chabo, !highfive, highfiveme!, !münzwurf, !testmeleft, !testmeright, !testmefront, !donatecheck, !top5, !bot, !bar");
-    				sendMessage (channel, "Mod-Befehle: !highfivetest, !reconnect, /ban Username, /unban username");
+    				sendMessage (channel, "Mod-Befehle: !highfivetest, !reconnect, /ban Username, /unban username, !quit");
     		} else {
     				sendMessage(channel, "!time, !ts, !twitty, !furbybot, !reallife, !teamspeak, !battletag, !ahrtos, !steam, !ahrtos-life, !hearthtracker, !fb, !facebook, !twitter, !amazon, !lmgtfy [Suchbegriff], !google [Suchbegriff], !donate, !spenden, !chabo, !highfive, highfiveme!, !münzwurf, !testmeleft, !tesmeright, !testmefront, !donatecheck, !top5, !bot, !bar");
     		}
     	}
 
-    		//////////////////////////////////
-    		//		Alte Funktion !CMD		//
-    		//////////////////////////////////
+	    			//////////////////////////////////
+	    			//		Alte Funktion !CMD		//
+	    			//////////////////////////////////
 //    	for(int i = 0; i < moderatoren.length; i++){    		
 //    		if (message.equalsIgnoreCase("!CMD")){
 //    			String senderholder = sender;
@@ -303,9 +317,9 @@ static GUI currentGUI = new GUI();
 //    			}
 //    		}
 //    	}
-    		////////////////////////////////////////////////////
-    		////	  Partnerlinks Game Finder Query		////
-    		////////////////////////////////////////////////////
+	   		////////////////////////////////////////////////////
+	   		////	  Partnerlinks Game Finder Query		////
+	   		////////////////////////////////////////////////////
     	
     	if (message.startsWith("!mmoga")) {
     		try {
@@ -344,9 +358,9 @@ static GUI currentGUI = new GUI();
     	
 //	Games  
 
-		/////////////////////////////////
-		////        Highfiver        ////
-		/////////////////////////////////
+			/////////////////////////////////
+			////        Highfiver        ////
+			/////////////////////////////////
 		if (message.equalsIgnoreCase("highfiveme!")) {
 				sendMessage(channel, " !highfive "+sender+"!");
 		}
@@ -360,9 +374,9 @@ static GUI currentGUI = new GUI();
 		}
 		
 
-		//////////////////////////////////
-		//         Blockergame          //
-		//////////////////////////////////
+			//////////////////////////////////
+			//         Blockergame          //
+			//////////////////////////////////
 		if (message.equalsIgnoreCase("!"))
 		
 		
@@ -394,9 +408,9 @@ static GUI currentGUI = new GUI();
 	
 	
 
-	//////////////////////////////////////////////////
-	//  //              Münzwurf                //  //
-	//////////////////////////////////////////////////
+			//////////////////////////////////////////////////
+			//  //              Münzwurf                //  //
+			//////////////////////////////////////////////////
 	
 		if (message.equalsIgnoreCase("!münzwurf")) {
 			coinflip = randomNumber(99);
@@ -414,17 +428,18 @@ static GUI currentGUI = new GUI();
 			}
 		}
 	
-	////////////////////////////////
-	////           Bar	        ////
-	////////////////////////////////
+			//////////////////////////////////////////////////////
+			////	//           	  Bar	  		     //	  ////
+			//////////////////////////////////////////////////////
+		
 		if (message.equalsIgnoreCase("!bar")) {
 			List<String> moderatorenListe = Arrays.asList(moderatoren);
 		if (moderatorenListe.contains(sender)) {
 				sendMessage(channel, "/me reicht "+sender+" mit einem freundlichen lächeln die Getränkeliste:");
-				sendMessage(channel, " -!bier, -!cola, -!milch, -!limonade, -!wodka, -!met, -!absinth | ModCommands: !keller");
+				sendMessage(channel, " -!bier, -!cola, -!milch, -!limonade, -!wodka, -!met, -!absinth, -!redbull, -!kaffee  | ModCommands: !keller");
 		} else {
 				sendMessage(channel, "/me reicht "+sender+" mit einem freundlichen lächeln die Getränkeliste:");
-				sendMessage(channel, " -!bier, -!cola, -!milch, -!limonade, -!wodka, -!met, -!absinth");
+				sendMessage(channel, " -!bier, -!cola, -!milch, -!limonade, -!wodka, -!met, -!absinth, -!redbull, -!kaffee ");
 		}
 	}		
 		//	Keller
@@ -432,7 +447,7 @@ static GUI currentGUI = new GUI();
 			List<String> moderatorenListe = Arrays.asList(moderatoren);
 		if (moderatorenListe.contains(sender)) {
 				sendMessage(channel, "/me verlässt die Bar und geht, auf Anweisung von "+sender+", in den Keller neue Getränke holen... Bis Gleich! ");
-				sendMessage(channel, " -!bier, -!cola, -!milch, -!limonade, -!wodka, -!met, -!absinth | ModCommands: !keller");
+				sendMessage(channel, " -!bier, -!cola, -!milch, -!limonade, -!wodka, -!met, -!absinth, -!redbull, -!kaffee | ModCommands: !keller");
 		} /* else {
 				sendMessage(channel, "/me reicht "+sender+" mit einem freundlichen lächeln die Getränkeliste:");
 				sendMessage(channel, " -!bier, -!cola, -!milch, -!limonade, -!wodka, -!met, -!absinth");
@@ -440,9 +455,9 @@ static GUI currentGUI = new GUI();
 		}
 	
 	
-			////////////////////////
-			////	Getränke	////
-			////////////////////////
+					////////////////////////
+					////	Getränke	////
+					////////////////////////
 	
 		if (message.equalsIgnoreCase("!bier")) {
 				sendMessage(channel, "/me reicht "+sender+" ein kühles Bier."+sender+" setzt die Flasche an, trinkt sie leer und wirft einen lauten Rülpser durch die Runde! PROST!");
@@ -465,10 +480,16 @@ static GUI currentGUI = new GUI();
 		if (message.equalsIgnoreCase("!absinth")) {
 				sendMessage(channel, "sry "+sender+", noch keine Nachricht fetsgelegt.");
 		}
-	
-	///////////////////////////////////////////////////
-	//////////  Spiel Ballwerfen by Yeroise  //////////
-	///////////////////////////////////////////////////
+		if (message.equalsIgnoreCase("!redbull")) {
+				sendMessage(channel, "sry "+sender+", noch keine Nachricht fetsgelegt.");
+		}
+		if (message.equalsIgnoreCase("!kaffee")) {
+				sendMessage(channel, "sry "+sender+", noch keine Nachricht fetsgelegt.");
+		}
+			
+			///////////////////////////////////////////////////
+			//////////  Spiel Ballwerfen by Yeroise  //////////
+			///////////////////////////////////////////////////
 
 //		if (message.equalsIgnoreCase("!ballspiel")) {
 //			if(balluser1 == null){
@@ -492,9 +513,9 @@ static GUI currentGUI = new GUI();
    		rngNumber = randomint.nextInt(range);
    		return rngNumber;
     	}
-    ///////////////////////////////////
-    ////     HighFiveGenerator     ////
-    ///////////////////////////////////
+		    ///////////////////////////////////
+		    ////     HighFiveGenerator     ////
+		    ///////////////////////////////////
     
     public void highfiveGenerator (String channel){
     	randomhighfive = randomNumber(8);
